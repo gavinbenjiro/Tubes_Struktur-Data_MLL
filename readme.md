@@ -8,4 +8,9 @@ Sistem ini dirancang untuk memodelkan hubungan antara penulis dan buku dengan pe
 2. Mengakses daftar buku berdasarkan penulis tertentu, atau sebaliknya.
 3. Memanipulasi data secara cepat dan efisien tanpa kompleksitas berlebih.
 
-Solusi ini ideal untuk pengelolaan data literasi, seperti katalog buku, perpustakaan digital, atau aplikasi pencatatan karya penulis. Jelajahi kekuatan struktur data linked list dalam mengelola hubungan yang kompleks.
+Solusi ini ideal untuk pengelolaan data literasi, seperti katalog buku, perpustakaan digital, atau aplikasi pencatatan karya penulis.
+
+Kelompok 6 :
+
+- Gavin Benjiro Ramadhan
+- Sena Rizky Pratama
