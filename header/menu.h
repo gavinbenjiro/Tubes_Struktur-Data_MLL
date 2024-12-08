@@ -13,4 +13,10 @@ void menuInsertParent();
 void menuFindElmParent();
 void menuChangeDataParent();
 
+// Menu Child
+void menuShowAllChild();
+void menuInsertChild();
+void menuFindElmChild();
+void menuChangeDataChild();
+
 #endif /* menu_h */

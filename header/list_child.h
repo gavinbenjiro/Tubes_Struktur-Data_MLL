@@ -16,7 +16,7 @@ struct buku
     string isbn;
     string judul;
     string penerbit;
-    string tahunTerbit;
+    int tahunTerbit;
     string genre;
     int harga;
     float rating;
@@ -40,5 +40,11 @@ struct List_child
 };
 
 // function & procedure
+void createListChild(List_child &L);
+adr_child newElmListChild(infotype_child x);
+void insertLastChild(List_child &L, adr_child p);
+void showAllListChild(List_child L);
+adr_child findElmChild(List_child L, string isbn, string genre, string judul);
+void changeDataChild(List_child &L, adr_child p);
 
 #endif /* list_child_h */
