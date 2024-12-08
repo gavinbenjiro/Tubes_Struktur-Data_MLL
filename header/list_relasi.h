@@ -5,6 +5,12 @@
 #include <iostream>
 using namespace std;
 
+// Alias
+#define firstR(L) L.first
+#define nextR(P) P->next
+#define childR(P) P->child
+#define parentR(P) P->parent
+
 // Implementasi Single-Linked List
 typedef struct elmList_relasi *adr_relasi;
 

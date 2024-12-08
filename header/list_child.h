@@ -3,6 +3,13 @@
 #include <iostream>
 using namespace std;
 
+// Alias
+#define firstC(L) L.first
+#define lastC(L) L.last
+#define infoC(P) P->info
+#define nextC(P) P->next
+#define prevC(P) P->prev
+
 // Implementasi Double-Linked List
 struct buku
 {
