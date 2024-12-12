@@ -114,6 +114,36 @@ void deleteLastParent(List_parent &L, adr_parent &p)
     }
 }
 
+void deletePenulis(List_parent &L, adr_parent p)
+{
+    /*
+    IS : Terdefinisi List L dan alamat dari elemen yang ingin di hapus
+    FS : Elemen p akan terhapus dari list
+    */
+    adr_parent q, prec;
+    if (firstP(L) != NULL)
+    {
+        if (firstP(L) == p)
+        {
+            deleteFirstParent(L, p);
+        }
+        else if (nextP(p) == NULL)
+        {
+            deleteLastParent(L, p);
+        }
+        else
+        {
+            q = firstP(L);
+            while (nextP(q) != p)
+            {
+                q = nextP(q);
+            }
+            prec = q;
+            deleteAfterParent(L, prec, p);
+        }
+    }
+}
+
 void showAllListParent(List_parent L)
 {
     /*
