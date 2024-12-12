@@ -43,6 +43,10 @@ struct List_child
 void createListChild(List_child &L);
 adr_child newElmListChild(infotype_child x);
 void insertLastChild(List_child &L, adr_child p);
+void deleteFirstChild(List_child &L, adr_child &p);
+void deleteAfterChild(List_child &L, adr_child prec, adr_child &p);
+void deleteLastChild(List_child &L, adr_child &p);
+void deleteBuku(List_child &L, adr_child p);
 void showAllListChild(List_child L);
 adr_child findElmChild(List_child L, string isbn, string genre, string judul);
 void changeDataChild(List_child &L, adr_child p);

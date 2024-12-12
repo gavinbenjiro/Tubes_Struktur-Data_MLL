@@ -14,7 +14,7 @@ adr_child newElmListChild(infotype_child x)
 {
     /*
     IS : Nilai data infotype telah tersedia
-    FS : Mengembalikan elemen list baru dengan info = x, next elemen = Nil
+    FS : Mengembalikan elemen list baru dengan info = x, next elemen = Nil & prev elemen = Nil
     */
     adr_child p;
     p = new elmList_child;
@@ -40,6 +40,101 @@ void insertLastChild(List_child &L, adr_child p)
         nextC(lastC(L)) = p;
         prevC(p) = lastC(L);
         lastC(L) = p;
+    }
+}
+
+void deleteFirstChild(List_child &L, adr_child &p)
+{
+    /*
+    IS : Terdefinisi List L yang mungkin kosong atau hanya memiliki 1 elemen
+    FS : Jika list kosong, maka pointer P di assign dengan NIL, jika tidak kosong maka elemen paling awal dihapus dari List L,
+         alamatnya disimpan oleh pointer p
+    */
+    p = firstC(L);
+    if (firstC(L) == lastC(L))
+    {
+        firstC(L) = NULL;
+        lastC(L) = NULL;
+    }
+    else
+    {
+        firstC(L) = nextC(p);
+        nextC(p) = NULL;
+        prevC(firstC(L)) = NULL;
+    }
+}
+
+void deleteAfterChild(List_child &L, adr_child prec, adr_child &p)
+{
+    /*
+    IS : Terdefinisi List L yang mungkin kosong atau memiliki lebih dari 1 elemen
+    FS : Jika list kosong, maka pointer P di assign dengan Nil, jika tidak kosong maka elemen setelah prec akan dihapus dari list L,
+         alamatnya disimpan oleh pointer p
+    */
+    if (nextC(prec) == lastC(L))
+    {
+        p = nextC(prec);
+        lastC(L) = prec;
+        nextC(prec) = NULL;
+        prevC(p) = NULL;
+    }
+    else if (nextC(prec) != lastC(L))
+    {
+        p = nextC(prec);
+        nextC(prec) = nextC(p);
+        prevC(nextC(p)) = prec;
+        nextC(p) = NULL;
+        prevC(p) = NULL;
+    }
+    else
+    {
+        p = NULL;
+    }
+}
+
+void deleteLastChild(List_child &L, adr_child &p)
+{
+    /*
+    IS : Terdefinisi List L yang mungkin kosong atau hanya memiliki 1 elemen
+    FS : Jika list kosong, maka pointer P di assign dengan NIL, jika tidak kosong maka elemen paling akhir dihapus dari List L,
+         alamatnya disimpan oleh pointer p
+    */
+    p = lastC(L);
+    if (firstC(L) == lastC(L))
+    {
+        firstC(L) = NULL;
+        lastC(L) = NULL;
+    }
+    else
+    {
+        lastC(L) = prevC(p);
+        nextC(lastC(L)) = NULL;
+        prevC(p) = NULL;
+    }
+}
+
+void deleteBuku(List_child &L, adr_child p)
+{
+    /*
+    IS : Terdefinisi List L dan alamat dari elemen yang ingin di hapus
+    FS : Elemen p akan terhapus dari list
+    */
+    adr_child q, prec;
+    if (firstC(L) != NULL)
+    {
+        if (firstC(L) == p)
+        {
+            deleteFirstChild(L, p);
+        }
+        else if (lastC(L) == p)
+        {
+            deleteLastChild(L, p);
+        }
+        else
+        {
+            prec = prevC(p);
+            deleteAfterChild(L, prec, p);
+        }
     }
 }
 

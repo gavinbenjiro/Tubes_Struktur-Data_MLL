@@ -69,8 +69,9 @@ void deleteFirstParent(List_parent &L, adr_parent &p)
 void deleteAfterParent(List_parent &L, adr_parent prec, adr_parent &p)
 {
     /*
-    IS : Terdefinisi List L yang mungkin kosong, sebuah elemen baru yang alamatnya disimpan oleh pointer P dan pointer prec
-    FS : Elemen baru telah masuk menjadi elemen setelah elemen yang alamatnay disimpan oleh pointer prec
+    IS : Terdefinisi List L yang mungkin kosong atau memiliki lebih dari 1 elemen
+    FS : Jika list kosong, maka pointer P di assign dengan Nil, jika tidak kosong maka elemen setelah prec akan dihapus dari list L,
+         alamatnya disimpan oleh pointer p
     */
     if (nextP(prec) == NULL or firstP(L) == NULL)
     {
