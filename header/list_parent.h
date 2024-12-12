@@ -39,6 +39,7 @@ void insertLastParent(List_parent &L, adr_parent p);
 void deleteFirstParent(List_parent &L, adr_parent &p);
 void deleteAfterParent(List_parent &L, adr_parent prec, adr_parent &p);
 void deleteLastParent(List_parent &L, adr_parent &p);
+void deletePenulis(List_parent &L, adr_parent p);
 void showAllListParent(List_parent L);
 adr_parent findElmParent(List_parent L, string id, string nama);
 void changeDataParent(List_parent &L, adr_parent p);
