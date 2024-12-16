@@ -4,7 +4,7 @@ void createListChild(List_child &L)
 {
     /*
     IS : -
-    FS : Pointer First dari List L bernilai Nil
+    FS : Pointer First dan Last dari List L bernilai Nil
     */
     firstC(L) = NULL;
     lastC(L) = NULL;
@@ -146,7 +146,8 @@ void showAllListChild(List_child L)
     */
     if (firstC(L) == NULL and lastC(L) == NULL)
     {
-        cout << "List Buku Kosong" << endl;
+        cout << "List Buku Kosong\n"
+             << endl;
     }
     else
     {
@@ -154,7 +155,7 @@ void showAllListChild(List_child L)
         int i = 1;               // i berfungsi untuk iterasi urutan data
         while (q != NULL)
         {
-            cout << "Data urutan ke-" << i << endl;
+            cout << "Buku urutan ke-" << i << endl;
             cout << "ISBN: " << infoC(q).isbn << endl;
             cout << "Judul: " << infoC(q).judul << endl;
             cout << "Penerbit: " << infoC(q).penerbit << endl;

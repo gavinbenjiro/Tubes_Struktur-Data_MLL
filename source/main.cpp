@@ -10,10 +10,12 @@ int main()
 {
     List_parent LP;            // List Parent
     List_child LC;             // List Child
+    List_relasi LR;            // List Relasi
     infotype_parent dataP;     // Infotype Parent
     infotype_child dataC;      // Infotype Child
     adr_parent pParent;        // Address Parent
     adr_child pChild;          // Address Child
+    adr_relasi pRelasi;        // Address Relasi
     string id, nama;           // untuk mencari elemen data Penulis
     string isbn, genre, judul; // untuk mencari elemen data Buku
     int banyakData;            // Banyak data yang diinputkan user
@@ -21,6 +23,12 @@ int main()
     // Membuat List Parent & Child
     createListParent(LP);
     createListChild(LC);
+    createListRelasi(LR);
+
+    // Dummy Data
+    elemenPenulis(LP);
+    elemenBuku(LC);
+    elemenRelasi(LR, LP, LC);
 
     int opsi = menuUtama(); // untuk menampung pilihan menu dari user
     while (opsi != 0)
@@ -33,6 +41,7 @@ int main()
             cin >> banyakData;
             for (int i = 1; i <= banyakData; i++)
             {
+                cout << "Masukkan Data Penulis: " << endl;
                 cout << "ID: ";
                 cin >> dataP.idPenulis;
                 cout << "Nama: ";
@@ -101,6 +110,7 @@ int main()
             cin >> banyakData;
             for (int i = 1; i <= banyakData; i++)
             {
+                cout << "Masukkan Data Buku: " << endl;
                 cout << "ISBN: ";
                 cin >> dataC.isbn;
                 cout << "Judul: ";
@@ -173,6 +183,135 @@ int main()
             else
             {
                 changeDataChild(LC, pChild);
+            }
+            printf("\n");
+            break;
+        case 9:
+            menuConnectRelasi();
+            cout << "Banyak relasi yang akan ditambahkan: ";
+            cin >> banyakData;
+            for (int i = 1; i <= banyakData; i++)
+            {
+                cout << "Masukkan Data Penulis: " << endl;
+                cout << "ID: ";
+                cin >> id;
+                cout << "Nama: ";
+                cin >> nama;
+                cout << "Masukkan Data Buku: " << endl;
+                cout << "ISBN: ";
+                cin >> isbn;
+                cout << "Genre: ";
+                cin >> genre;
+                cout << "Judul: ";
+                cin >> judul;
+                connectRelasi(LR, LP, LC, id, nama, isbn, genre, judul);
+                printf("\n");
+            }
+            break;
+        case 10:
+            menuShowAllParentAndChild();
+            showParentAndChild(LR, LP);
+            break;
+        case 11:
+            menuSearchChildFromParent();
+            cout << "Masukkan ID & Nama Penulis!" << endl;
+            cout << "ID: ";
+            cin >> id;
+            cout << "Nama: ";
+            cin >> nama;
+            pParent = findElmParent(LP, id, nama);
+            printf("\n");
+            if (pParent == NULL)
+            {
+                cout << "Data Penulis Tidak Tersedia" << endl
+                     << endl;
+            }
+            else
+            {
+                searchChildFromParent(LR, pParent);
+            }
+            break;
+        case 12:
+            menuDeleteParentAndChild();
+            cout << "Masukkan ID & Nama Penulis Yang Ingin Dihapus" << endl;
+            cout << "ID: ";
+            cin >> id;
+            cout << "Nama: ";
+            cin >> nama;
+            pParent = findElmParent(LP, id, nama);
+            printf("\n");
+            if (pParent == NULL)
+            {
+                cout << "Data Penulis Tidak Tersedia" << endl;
+            }
+            else
+            {
+                deleteParentAndRelasiToChild(LR, LP, LC, pParent);
+                cout << "Data Penulis Beserta Relasi Dengan Buku Telah Terhapus" << endl;
+            }
+            printf("\n");
+            break;
+        case 13:
+            menuDeleteChildFromParent();
+            cout << "Masukkan ID & Nama Penulis!" << endl;
+            cout << "ID: ";
+            cin >> id;
+            cout << "Nama: ";
+            cin >> nama;
+            pParent = findElmParent(LP, id, nama);
+            printf("\n");
+            if (pParent == NULL)
+            {
+                cout << "Data Penulis Tidak Tersedia" << endl;
+            }
+            else
+            {
+                searchChildFromParent(LR, pParent);
+                pRelasi = findElmRelasiByParent(LR, pParent);
+                if (pRelasi == NULL)
+                {
+                    cout << "Penulis " << infoP(pParent).nama << " Tidak Memiliki Buku" << endl;
+                }
+                else
+                {
+                    cout << "Masukkan ISBN, Genre & Judul Buku Yang Ingin Dihapus" << endl;
+                    cout << "ISBN: ";
+                    cin >> isbn;
+                    cout << "Genre: ";
+                    cin >> genre;
+                    cout << "Judul: ";
+                    cin >> judul;
+                    pChild = findElmChild(LC, isbn, genre, judul);
+                    if (pChild == NULL)
+                    {
+                        cout << "\nData Buku Tidak Tersedia" << endl;
+                    }
+                    else
+                    {
+                        deleteRelasiChildFromParent(LR, LC, pParent, pChild);
+                        cout << "\nData Buku " << infoC(pChild).judul << " Dari Penulis " << infoP(pParent).nama << " Telah Terhapus" << endl;
+                    }
+                }
+            }
+            printf("\n");
+            break;
+        case 14:
+            menuCountSoldBooks();
+            cout << "Masukkan ID & Nama Penulis!" << endl;
+            cout << "ID: ";
+            cin >> id;
+            cout << "Nama: ";
+            cin >> nama;
+            pParent = findElmParent(LP, id, nama);
+            printf("\n");
+            if (pParent == NULL)
+            {
+                cout << "Data Penulis Tidak Tersedia" << endl;
+            }
+            else
+            {
+                searchChildFromParent(LR, pParent);
+                cout << "Total Buku Yang Terjual Dari Penulis " << infoP(pParent).nama << " adalah " << countSoldBooksFromParent(LR, pParent) << endl;
             }
             printf("\n");
             break;

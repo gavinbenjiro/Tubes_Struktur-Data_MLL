@@ -19,4 +19,17 @@ void menuInsertChild();
 void menuFindElmChild();
 void menuChangeDataChild();
 
+// Menu Relasi
+void menuShowAllParentAndChild();
+void menuConnectRelasi();
+void menuSearchChildFromParent();
+void menuDeleteParentAndChild();
+void menuDeleteChildFromParent();
+void menuCountSoldBooks();
+
+// Dummy Data
+void elemenPenulis(List_parent &L);
+void elemenBuku(List_child &L);
+void elemenRelasi(List_relasi &L, List_parent LP, List_child LC);
+
 #endif /* menu_h */

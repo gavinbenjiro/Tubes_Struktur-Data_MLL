@@ -120,7 +120,7 @@ void deletePenulis(List_parent &L, adr_parent p)
     IS : Terdefinisi List L dan alamat dari elemen yang ingin di hapus
     FS : Elemen p akan terhapus dari list
     */
-    adr_parent q, prec;
+    adr_parent q, prec; // q dan prec untuk delete after
     if (firstP(L) != NULL)
     {
         if (firstP(L) == p)
@@ -152,7 +152,7 @@ void showAllListParent(List_parent L)
     */
     if (firstP(L) == NULL)
     {
-        cout << "List Penulis Kosong"
+        cout << "List Penulis Kosong\n"
              << endl;
     }
     else
@@ -161,7 +161,7 @@ void showAllListParent(List_parent L)
         int i = 1;                // i berfungsi untuk iterasi urutan data
         while (q != NULL)
         {
-            cout << "Data urutan ke-" << i << endl;
+            cout << "Penulis urutan ke-" << i << endl;
             cout << "ID: " << infoP(q).idPenulis << endl;
             cout << "Nama: " << infoP(q).nama << endl;
             cout << "Usia: " << infoP(q).usia << endl;
