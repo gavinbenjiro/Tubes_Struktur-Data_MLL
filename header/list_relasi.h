@@ -40,7 +40,7 @@ adr_relasi findElmRelasiByChild(List_relasi L, adr_child buku);
 adr_relasi findElmRelasiByParent(List_relasi L, adr_parent penulis);
 void searchChildFromParent(List_relasi L, adr_parent p);
 void deleteParentAndRelasiToChild(List_relasi &L, List_parent &LP, List_child &LC, adr_parent p);
-void deleteRelasiChildFromParent(List_relasi &L, List_child &LC, adr_parent pParent, adr_child pChild);
+void deleteRelasiChildFromParent(List_relasi &L, List_parent &LP, List_child &LC, adr_parent pParent, adr_child pChild);
 int countSoldBooksFromParent(List_relasi L, adr_parent p);
 
 #endif /* list_relasi_h */

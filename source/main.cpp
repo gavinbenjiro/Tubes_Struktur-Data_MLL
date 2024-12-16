@@ -267,30 +267,22 @@ int main()
             else
             {
                 searchChildFromParent(LR, pParent);
-                pRelasi = findElmRelasiByParent(LR, pParent);
-                if (pRelasi == NULL)
+                cout << "Masukkan ISBN, Genre & Judul Buku Yang Ingin Dihapus" << endl;
+                cout << "ISBN: ";
+                cin >> isbn;
+                cout << "Genre: ";
+                cin >> genre;
+                cout << "Judul: ";
+                cin >> judul;
+                pChild = findElmChild(LC, isbn, genre, judul);
+                if (pChild == NULL)
                 {
-                    cout << "Penulis " << infoP(pParent).nama << " Tidak Memiliki Buku" << endl;
+                    cout << "\nData Buku Tidak Tersedia" << endl;
                 }
                 else
                 {
-                    cout << "Masukkan ISBN, Genre & Judul Buku Yang Ingin Dihapus" << endl;
-                    cout << "ISBN: ";
-                    cin >> isbn;
-                    cout << "Genre: ";
-                    cin >> genre;
-                    cout << "Judul: ";
-                    cin >> judul;
-                    pChild = findElmChild(LC, isbn, genre, judul);
-                    if (pChild == NULL)
-                    {
-                        cout << "\nData Buku Tidak Tersedia" << endl;
-                    }
-                    else
-                    {
-                        deleteRelasiChildFromParent(LR, LC, pParent, pChild);
-                        cout << "\nData Buku " << infoC(pChild).judul << " Dari Penulis " << infoP(pParent).nama << " Telah Terhapus" << endl;
-                    }
+                    deleteRelasiChildFromParent(LR, LP, LC, pParent, pChild);
+                    cout << "\nData Buku " << infoC(pChild).judul << " Dari Penulis " << infoP(pParent).nama << " Telah Terhapus" << endl;
                 }
             }
             printf("\n");

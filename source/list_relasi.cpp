@@ -329,7 +329,7 @@ void deleteParentAndRelasiToChild(List_relasi &L, List_parent &LP, List_child &L
     deletePenulis(LP, p);
 }
 
-void deleteRelasiChildFromParent(List_relasi &L, List_child &LC, adr_parent pParent, adr_child pChild)
+void deleteRelasiChildFromParent(List_relasi &L, List_parent &LP, List_child &LC, adr_parent pParent, adr_child pChild)
 {
     /*
     IS : Terdefinisi elemen penulis dan elemen buku yang akan dihapus
@@ -364,6 +364,12 @@ void deleteRelasiChildFromParent(List_relasi &L, List_child &LC, adr_parent pPar
         {
             deleteRelasi(L, q);
         }
+    }
+    // menghapus elemen parent jika sudah tidak ada relasi denagan buku
+    q = findElmRelasiByParent(L, pParent);
+    if (q == NULL)
+    {
+        deletePenulis(LP, pParent);
     }
 }
 
