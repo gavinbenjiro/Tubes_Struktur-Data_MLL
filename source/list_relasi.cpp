@@ -334,6 +334,7 @@ void deleteRelasiChildFromParent(List_relasi &L, List_parent &LP, List_child &LC
     /*
     IS : Terdefinisi elemen penulis dan elemen buku yang akan dihapus
     FS : Relasi antara penulis pParent dan buku pChild terhapus, jika elemen buku tidak berelasi ke penulis lainnya maka buku akan terhapus
+         dan jika elemen penulis tidak berelasi ke buku lainnya maka penulis akan terhapus
     */
     adr_relasi elmR = firstR(L); // untuk menyimpan alamat elemen relasi untuk looping
     adr_relasi q;                // untuk menyimpan alamat elemen relasi guna mencari elemen relasi & menghapus elemen relasi
@@ -365,7 +366,7 @@ void deleteRelasiChildFromParent(List_relasi &L, List_parent &LP, List_child &LC
             deleteRelasi(L, q);
         }
     }
-    // menghapus elemen parent jika sudah tidak ada relasi denagan buku
+    // menghapus elemen parent jika sudah tidak ada relasi dengan buku
     q = findElmRelasiByParent(L, pParent);
     if (q == NULL)
     {
