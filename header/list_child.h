@@ -13,7 +13,7 @@ using namespace std;
 // Implementasi Double-Linked List
 struct buku
 {
-    string isbn;
+    string isbn; // kode unik buku
     string judul;
     string penerbit;
     int tahunTerbit;

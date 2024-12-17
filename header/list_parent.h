@@ -11,7 +11,7 @@ using namespace std;
 // Implementasi Single-Linked List
 struct penulis
 {
-    string idPenulis;
+    string idPenulis; // kode unik penulis
     string nama;
     int usia;
     string email;

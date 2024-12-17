@@ -17,8 +17,8 @@ adr_parent newElmListParent(infotype_parent x)
     FS : Mengembalikan elemen list baru dengan info = x, next elemen = Nil
     */
 
-    adr_parent p;
-    p = new elmList_parent;
+    adr_parent p;           // alamat untuk membentuk elemen baru
+    p = new elmList_parent; // elemen baru terbentuk
     infoP(p) = x;
     nextP(p) = NULL;
     return p;
@@ -31,11 +31,11 @@ void insertLastParent(List_parent &L, adr_parent p)
     FS : Elemen baru telah masuk menjadi elemen paling akhir di list L
     */
 
-    if (firstP(L) == NULL)
+    if (firstP(L) == NULL) // jika list kosong
     {
         firstP(L) = p;
     }
-    else
+    else // jika list tidak kosong
     {
         adr_parent q = firstP(L); // q berfungsi untuk mencari elemen terakhir
         while (nextP(q) != NULL)
@@ -54,11 +54,11 @@ void deleteFirstParent(List_parent &L, adr_parent &p)
          alamatnya disimpan oleh pointer p
     */
 
-    if (firstP(L) == NULL)
+    if (firstP(L) == NULL) // jika list kosong
     {
         p = NULL;
     }
-    else
+    else // jika list memiliki minimal 1 elemen
     {
         p = firstP(L);
         firstP(L) = nextP(p);
@@ -73,11 +73,11 @@ void deleteAfterParent(List_parent &L, adr_parent prec, adr_parent &p)
     FS : Jika list kosong, maka pointer P di assign dengan Nil, jika tidak kosong maka elemen setelah prec akan dihapus dari list L,
          alamatnya disimpan oleh pointer p
     */
-    if (nextP(prec) == NULL or firstP(L) == NULL)
+    if (nextP(prec) == NULL or firstP(L) == NULL) // jika prec berada di elemen terakhir atau jika list kosong
     {
         p = NULL;
     }
-    else
+    else // jika elemen yang ingin dihapus berada di tengah atau di akhir
     {
         p = nextP(prec);
         nextP(prec) = nextP(p);
@@ -93,16 +93,16 @@ void deleteLastParent(List_parent &L, adr_parent &p)
          alamatnya disimpan oleh pointer p
     */
 
-    if (firstP(L) == NULL)
+    if (firstP(L) == NULL) // jika list kosong
     {
         p = NULL;
     }
-    else if (nextP(firstP(L)) == NULL)
+    else if (nextP(firstP(L)) == NULL) // jika list hanya memiliki 1 elemen
     {
         p = firstP(L);
         firstP(L) = NULL;
     }
-    else
+    else // jika list memiliki lebih dari 1 elemen
     {
         adr_parent q, p = firstP(L);
         while (nextP(p) != NULL)
@@ -150,12 +150,12 @@ void showAllListParent(List_parent L)
     IS : Terdefinisi List L yang mungkin kosong
     FS : Jika list kosong maka tampilkan ke layar “list kosong”, jika tidak maka seluruh data pada list ditampilkan ke layar
     */
-    if (firstP(L) == NULL)
+    if (firstP(L) == NULL) // jika list kosong
     {
         cout << "List Penulis Kosong\n"
              << endl;
     }
-    else
+    else // jika list tidak kosong
     {
         adr_parent q = firstP(L); // q berfungsi untuk menyimpan setiap elemen dari pertama hingga terakhir
         int i = 1;                // i berfungsi untuk iterasi urutan data
@@ -182,18 +182,18 @@ adr_parent findElmParent(List_parent L, string id, string nama)
     */
 
     adr_parent q = firstP(L); // q berfungsi untuk menemukan elemen yang dicari
-    while (q != NULL)
+    while (q != NULL)         // memastikan pencarian akan dilakukan jika list memiliki minimal 1 elemen
     {
         if (infoP(q).idPenulis == id and infoP(q).nama == nama)
         {
-            return q;
+            return q; // jika data ditemukan
         }
         else
         {
             q = nextP(q);
         }
     }
-    return NULL;
+    return NULL; // jika tidak ditemukan
 }
 
 void changeDataParent(List_parent &L, adr_parent p)

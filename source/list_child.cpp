@@ -16,8 +16,8 @@ adr_child newElmListChild(infotype_child x)
     IS : Nilai data infotype telah tersedia
     FS : Mengembalikan elemen list baru dengan info = x, next elemen = Nil & prev elemen = Nil
     */
-    adr_child p;
-    p = new elmList_child;
+    adr_child p;           // alamat untuk membentuk elemen baru
+    p = new elmList_child; // elemen baru terbentuk
     infoC(p) = x;
     prevC(p) = NULL;
     nextC(p) = NULL;
@@ -30,12 +30,12 @@ void insertLastChild(List_child &L, adr_child p)
     IS : Terdefinisi List L yang mungkin kosong dan sebuah elemen baru yang alamatnya disimpan oleh pointer P
     FS : Elemen baru telah masuk menjadi elemen paling akhir di list L
     */
-    if (firstC(L) == NULL and lastC(L) == NULL)
+    if (firstC(L) == NULL and lastC(L) == NULL) // jika list kosong
     {
         firstC(L) = p;
         lastC(L) = p;
     }
-    else
+    else // jika list tidak kosong
     {
         nextC(lastC(L)) = p;
         prevC(p) = lastC(L);
@@ -51,12 +51,12 @@ void deleteFirstChild(List_child &L, adr_child &p)
          alamatnya disimpan oleh pointer p
     */
     p = firstC(L);
-    if (firstC(L) == lastC(L))
+    if (firstC(L) == lastC(L)) // jika list kosong atau hanya memiliki 1 elemen
     {
         firstC(L) = NULL;
         lastC(L) = NULL;
     }
-    else
+    else // jika list memiliki lebih dari 1 elemen
     {
         firstC(L) = nextC(p);
         nextC(p) = NULL;
@@ -71,14 +71,14 @@ void deleteAfterChild(List_child &L, adr_child prec, adr_child &p)
     FS : Jika list kosong, maka pointer P di assign dengan Nil, jika tidak kosong maka elemen setelah prec akan dihapus dari list L,
          alamatnya disimpan oleh pointer p
     */
-    if (nextC(prec) == lastC(L))
+    if (nextC(prec) == lastC(L)) // elemen yang ingin dihapus adalah elemen terakhir
     {
         p = nextC(prec);
         lastC(L) = prec;
         nextC(prec) = NULL;
         prevC(p) = NULL;
     }
-    else if (nextC(prec) != lastC(L))
+    else if (nextC(prec) != lastC(L)) // jika elemen yang ingin dihapus bukan elemen terakhir
     {
         p = nextC(prec);
         nextC(prec) = nextC(p);
@@ -86,7 +86,7 @@ void deleteAfterChild(List_child &L, adr_child prec, adr_child &p)
         nextC(p) = NULL;
         prevC(p) = NULL;
     }
-    else
+    else // jika list kosong
     {
         p = NULL;
     }
@@ -100,12 +100,12 @@ void deleteLastChild(List_child &L, adr_child &p)
          alamatnya disimpan oleh pointer p
     */
     p = lastC(L);
-    if (firstC(L) == lastC(L))
+    if (firstC(L) == lastC(L)) // jika list kosong atau hanya memiliki 1 elemen
     {
         firstC(L) = NULL;
         lastC(L) = NULL;
     }
-    else
+    else // jika list memiliki lebih dari 1 elemen
     {
         lastC(L) = prevC(p);
         nextC(lastC(L)) = NULL;
@@ -119,18 +119,18 @@ void deleteBuku(List_child &L, adr_child p)
     IS : Terdefinisi List L dan alamat dari elemen yang ingin di hapus
     FS : Elemen p akan terhapus dari list
     */
-    adr_child q, prec;
-    if (firstC(L) != NULL)
+    adr_child prec;        // prec berfungsi untuk delete after
+    if (firstC(L) != NULL) // memastikan penghapusan akan dilakukan jika list memiliki minimal 1 elemen
     {
-        if (firstC(L) == p)
+        if (firstC(L) == p) // jika elemen yang ingin dihapus adalah elemen pertama
         {
             deleteFirstChild(L, p);
         }
-        else if (lastC(L) == p)
+        else if (lastC(L) == p) // jika elemen yang ingin dihapus adalah elemen terakhir
         {
             deleteLastChild(L, p);
         }
-        else
+        else // jika elemen yang ingin dihapus tidak berada di awal ataupun di akhir
         {
             prec = prevC(p);
             deleteAfterChild(L, prec, p);
@@ -144,12 +144,12 @@ void showAllListChild(List_child L)
     IS : Terdefinisi List L yang mungkin kosong
     FS : Jika list kosong maka tampilkan ke layar “list kosong”, jika tidak maka seluruh data pada list ditampilkan ke layar
     */
-    if (firstC(L) == NULL and lastC(L) == NULL)
+    if (firstC(L) == NULL and lastC(L) == NULL) // jika list kosong
     {
         cout << "List Buku Kosong\n"
              << endl;
     }
-    else
+    else // jika list tidak kosong
     {
         adr_child q = firstC(L); // q berfungsi untuk menyimpan setiap elemen dari pertama hingga terakhir
         int i = 1;               // i berfungsi untuk iterasi urutan data
@@ -178,18 +178,18 @@ adr_child findElmChild(List_child L, string isbn, string genre, string judul)
     FS : Return alamat dimana penulis ditemukan, return nil jika tidak ditemukan
     */
     adr_child q = firstC(L); // q berfungsi untuk menemukan elemen yang dicari
-    while (q != NULL)
+    while (q != NULL)        // memastikan pencarian akan dilakukan jika list memiliki minimal 1 elemen
     {
         if (infoC(q).genre == genre and infoC(q).isbn == isbn and infoC(q).judul == judul)
         {
-            return q;
+            return q; // jika data ditemukan
         }
         else
         {
             q = nextC(q);
         }
     }
-    return NULL;
+    return NULL; // jika tidak ditemukan
 }
 
 void changeDataChild(List_child &L, adr_child p)

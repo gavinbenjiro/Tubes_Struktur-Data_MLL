@@ -15,8 +15,8 @@ adr_relasi newElmListRelasi(adr_parent elmP, adr_child elmC)
     IS : Terdefinisi elemen penulis dan elemen buku yang akan dihubungkan
     FS : Mengembalikan elemen list baru dengan relasi parent = elmP, relasi child = elmC, dan next elemen = Nil
     */
-    adr_relasi p;
-    p = new elmList_relasi;
+    adr_relasi p;           // alamat untuk membentuk elemen baru
+    p = new elmList_relasi; // elemen baru terbentuk
     parentR(p) = elmP;
     childR(p) = elmC;
     nextR(p) = NULL;
@@ -29,11 +29,11 @@ void insertLastRelasi(List_relasi &L, adr_relasi p)
     IS : Terdefinisi List L yang mungkin kosong dan sebuah elemen baru yang alamatnya disimpan oleh pointer P
     FS : Elemen baru telah masuk menjadi elemen paling akhir di list L
     */
-    if (firstR(L) == NULL)
+    if (firstR(L) == NULL) // jika list kosong
     {
         firstR(L) = p;
     }
-    else
+    else // jika list tidak kosong
     {
         adr_relasi q = firstR(L); // q berfungsi untuk mencari elemen terakhir
         while (nextR(q) != NULL)
@@ -51,11 +51,11 @@ void deleteFirstRelasi(List_relasi &L, adr_relasi &p)
     FS : Jika list kosong, maka pointer P di assign dengan NIL, jika tidak kosong maka elemen paling awal dihapus dari List L,
          alamatnya disimpan oleh pointer p
     */
-    if (firstR(L) == NULL)
+    if (firstR(L) == NULL) // jika list kosong
     {
         p = NULL;
     }
-    else
+    else // jika list memiliki minimal 1 elemen
     {
         p = firstR(L);
         firstR(L) = nextR(p);
@@ -70,11 +70,11 @@ void deleteAfterRelasi(List_relasi &L, adr_relasi prec, adr_relasi &p)
     FS : Jika list kosong, maka pointer P di assign dengan Nil, jika tidak kosong maka elemen setelah prec akan dihapus dari list L,
          alamatnya disimpan oleh pointer p
     */
-    if (nextR(prec) == NULL or firstR(L) == NULL)
+    if (nextR(prec) == NULL or firstR(L) == NULL) // jika prec berada di elemen terakhir atau jika list kosong
     {
         p = NULL;
     }
-    else
+    else // jika elemen yang ingin dihapus berada di tengah atau di akhir
     {
         p = nextR(prec);
         nextR(prec) = nextR(p);
@@ -89,16 +89,16 @@ void deleteLastRelasi(List_relasi &L, adr_relasi &p)
     FS : Jika list kosong, maka pointer P di assign dengan NIL, jika tidak kosong maka elemen paling akhir dihapus dari List L,
          alamatnya disimpan oleh pointer p
     */
-    if (firstR(L) == NULL)
+    if (firstR(L) == NULL) // jika list kosong
     {
         p = NULL;
     }
-    else if (nextR(firstR(L)) == NULL)
+    else if (nextR(firstR(L)) == NULL) // jika list hanya memiliki 1 elemen
     {
         p = firstR(L);
         firstR(L) = NULL;
     }
-    else
+    else // jika list memiliki lebih dari 1 elemen
     {
         adr_relasi q, p = firstR(L);
         while (nextR(p) != NULL)
@@ -150,15 +150,15 @@ void connectRelasi(List_relasi &L, List_parent LP, List_child LC, string id, str
     adr_child elmC;  // untuk menyimpan alamat buku
     adr_relasi p;    // untuk menyimpan alamat relasi
 
-    elmP = findElmParent(LP, id, nama);
-    elmC = findElmChild(LC, isbn, genre, judul);
-    if (elmP != NULL and elmC != NULL)
+    elmP = findElmParent(LP, id, nama);          // mencari elemen penulis
+    elmC = findElmChild(LC, isbn, genre, judul); // mencari elemen buku
+    if (elmP != NULL and elmC != NULL)           // memastikan jika elemen penulis dan buku terdapat dalam list
     {
         p = newElmListRelasi(elmP, elmC);
         insertLastRelasi(L, p);
         cout << "Penulis " << nama << " dengan Buku " << judul << " Berhasil Terhubung" << endl;
     }
-    else
+    else // jika elemen penulis atau elemen buku ada yang tidak valid
     {
         cout << "Data Penulis atau Data Buku Tidak Tersedia" << endl;
     }
@@ -170,17 +170,17 @@ void showParentAndChild(List_relasi L, List_parent LP)
     IS : Terdefinisi List relasi & parent yang mungkin kosong
     FS : Jika list kosong maka tampilkan ke layar "tidak ada relasi penulis dan buku”, jika tidak maka seluruh data parent beserta child pada list ditampilkan ke layar
     */
-    if (firstR(L) == NULL and firstP(LP) == NULL)
+    if (firstR(L) == NULL and firstP(LP) == NULL) // jika tidak ada relasi antara penulis dengan buku
     {
         cout << "Tidak Ada Relasi Antara Penulis dengan Buku\n"
              << endl;
     }
-    else
+    else // jika terdapat relasi antara penulis dengan buku
     {
         adr_parent nodeP = firstP(LP); // untuk menyimpan alamat elemen penulis
         int i = 1;                     // i berfungsi untuk iterasi urutan data penulis
 
-        while (nodeP != NULL)
+        while (nodeP != NULL) // perulangan sampai P tidak lagi memegang elemen penulis
         {
             cout << "Penulis urutan ke-" << i << endl;
             cout << "ID: " << infoP(nodeP).idPenulis << endl;
@@ -191,9 +191,9 @@ void showParentAndChild(List_relasi L, List_parent LP)
             cout << endl;
             adr_relasi nodeR = firstR(L); // untuk menyimpan alamat elemen relasi
             int x = 1;                    // x berfungsi untuk iterasi urutan data buku
-            while (nodeR != NULL)
+            while (nodeR != NULL)         // perulangan sampai R tidak lagi memegang elemen relasi
             {
-                if (parentR(nodeR) == nodeP)
+                if (parentR(nodeR) == nodeP) // jika elemen pada parent dari R menunjuk penulis yang sama dengan P
                 {
                     cout << "Buku ke-" << x << endl;
                     cout << "ISBN: " << infoC(childR(nodeR)).isbn << endl;
@@ -224,18 +224,18 @@ adr_relasi findElmRelasiByChild(List_relasi L, adr_child buku)
     FS : Return alamat dimana relasi ditemukan, return nil jika tidak ditemukan
     */
     adr_relasi q = firstR(L); // q berfungsi untuk menemukan elemen yang diari
-    while (q != NULL)
+    while (q != NULL)         // memastikan pencarian akan dilakukan jika list memiliki minimal 1 elemen
     {
         if (childR(q) == buku)
         {
-            return q;
+            return q; // jika data ditemukan
         }
         else
         {
             q = nextR(q);
         }
     }
-    return NULL;
+    return NULL; // jika tidak ditemukan
 }
 
 adr_relasi findElmRelasiByParent(List_relasi L, adr_parent penulis)
@@ -245,18 +245,18 @@ adr_relasi findElmRelasiByParent(List_relasi L, adr_parent penulis)
     FS : Return alamat dimana relasi ditemukan, return nil jika tidak ditemukan
     */
     adr_relasi q = firstR(L); // q berfungsi untuk menemukan elemen yang diari
-    while (q != NULL)
+    while (q != NULL)         // memastikan pencarian akan dilakukan jika list memiliki minimal 1 elemen
     {
         if (parentR(q) == penulis)
         {
-            return q;
+            return q; // jika data ditemukan
         }
         else
         {
             q = nextR(q);
         }
     }
-    return NULL;
+    return NULL; // jika tidak ditemukan
 }
 
 void searchChildFromParent(List_relasi L, adr_parent p)
@@ -269,9 +269,9 @@ void searchChildFromParent(List_relasi L, adr_parent p)
     int i = 1;                   // i berfungsi untuk iterasi urutan data penulis
     cout << "Menampilkan Seluruh Buku yang Ditulis Oleh " << infoP(p).nama << endl
          << endl;
-    while (elmR != NULL)
+    while (elmR != NULL) // perulangan sampai R tidak lagi memegang elemen relasi
     {
-        if (parentR(elmR) == p)
+        if (parentR(elmR) == p) // jika elemen pada parent dari R menunjuk penulis yang sama dengan P
         {
             cout << "Buku ke-" << i << endl;
             cout << "ISBN: " << infoC(childR(elmR)).isbn << endl;
@@ -299,30 +299,30 @@ void deleteParentAndRelasiToChild(List_relasi &L, List_parent &LP, List_child &L
     adr_relasi q;                // untuk menyimpan alamat elemen relasi guna mencari elemen relasi & menghapus elemen relasi
     adr_child elmC;              // untuk menyimpan elemen buku dan akan menghapus buku jika tidak ada relasi lagi terhadap elemen buku tersebut
     // menghapus relasi antara buku dengan penulis yang ingin dihapus
-    while (elmR != NULL)
+    while (elmR != NULL) // perulangan sampai R tidak lagi memegang elemen relasi
     {
-        if (parentR(elmR) == p)
+        if (parentR(elmR) == p) // jika elemen pada parent dari R menunjuk penulis yang sama dengan P
         {
-            parentR(elmR) = NULL;
-            elmC = childR(elmR);
-            childR(elmR) = NULL;
-            q = findElmRelasiByChild(L, elmC);
-            if (q == NULL)
+            parentR(elmR) = NULL;              // parent dari elemen relasi akan NULL
+            elmC = childR(elmR);               // child dari elemen relasi disimpan ke dalam elmC
+            childR(elmR) = NULL;               // child dari elemen relasi akan NULL
+            q = findElmRelasiByChild(L, elmC); // mencari elemen relasi berdasarkan buku
+            if (q == NULL)                     // jika q bernilai NULL artinya tidak ada lagi relasi terhadap buku yang disimpan oleh elmC
             {
-                deleteBuku(LC, elmC);
+                deleteBuku(LC, elmC); // buku tidak berelasi lagi dengan penulis manapun, maka buku akan terhapus
             }
         }
         elmR = nextR(elmR);
     }
     // menghapus elemen relasi yang sudah tidak berelasi dengan penulis dan buku
     elmR = firstR(L);
-    while (elmR != NULL)
+    while (elmR != NULL) // perulangan sampai R tidak lagi memegang elemen relasi
     {
         q = elmR;
-        elmR = nextR(elmR);
-        if (parentR(q) == NULL and childR(q) == NULL)
+        elmR = nextR(elmR);                           // elmR menyimpan nilai dari next(q)
+        if (parentR(q) == NULL and childR(q) == NULL) // jika elemen relasi tidak lagi menghubungkan antara penulis dengan buku
         {
-            deleteRelasi(L, q);
+            deleteRelasi(L, q); // relasi tidak lagi menghubungkan penulis dengan buku manapun, maka relasi akan terhapus
         }
     }
     // menghapus elemen penulis
@@ -340,30 +340,30 @@ void deleteRelasiChildFromParent(List_relasi &L, List_parent &LP, List_child &LC
     adr_relasi q;                // untuk menyimpan alamat elemen relasi guna mencari elemen relasi & menghapus elemen relasi
     adr_child elmC;              // untuk menyimpan elemen buku dan akan menghapus buku jika tidak ada relasi lagi terhadap elemen buku tersebut
     // menghapus relasi antara buku dengan penulis yang ingin dihapus
-    while (elmR != NULL)
+    while (elmR != NULL) // perulangan sampai R tidak lagi memegang elemen relasi
     {
-        if (parentR(elmR) == pParent and childR(elmR) == pChild)
+        if (parentR(elmR) == pParent and childR(elmR) == pChild) // jika elemen relasi menghubungkan penulis dengan buku yang dicari
         {
-            parentR(elmR) = NULL;
-            elmC = childR(elmR);
-            childR(elmR) = NULL;
-            q = findElmRelasiByChild(L, elmC);
-            if (q == NULL)
+            parentR(elmR) = NULL;              // parent dari elemen relasi akan NULL
+            elmC = childR(elmR);               // child dari elemen relasi disimpan ke dalam elmC
+            childR(elmR) = NULL;               // child dari elemen relasi akan NULL
+            q = findElmRelasiByChild(L, elmC); // mencari elemen relasi berdasarkan buku
+            if (q == NULL)                     // jika q bernilai NULL artinya tidak ada lagi relasi terhadap buku yang disimpan oleh elmC
             {
-                deleteBuku(LC, elmC);
+                deleteBuku(LC, elmC); // buku tidak berelasi lagi dengan penulis manapun, maka buku akan terhapus
             }
         }
         elmR = nextR(elmR);
     }
     // menghapus elemen relasi yang sudah tidak berelasi dengan penulis dan buku
     elmR = firstR(L);
-    while (elmR != NULL)
+    while (elmR != NULL) // perulangan sampai R tidak lagi memegang elemen relasi
     {
         q = elmR;
-        elmR = nextR(elmR);
-        if (parentR(q) == NULL and childR(q) == NULL)
+        elmR = nextR(elmR);                           // elmR menyimpan nilai dari next(q)
+        if (parentR(q) == NULL and childR(q) == NULL) // jika elemen relasi tidak lagi menghubungkan antara penulis dengan buku
         {
-            deleteRelasi(L, q);
+            deleteRelasi(L, q); // relasi tidak lagi menghubungkan penulis dengan buku manapun, maka relasi akan terhapus
         }
     }
     // menghapus elemen parent jika sudah tidak ada relasi dengan buku
@@ -380,8 +380,8 @@ int countSoldBooksFromParent(List_relasi L, adr_parent p)
     IS : Terdefinisi elemen penulis
     FS : Mengembalikan jumlah total buku terjual dari penulis p
     */
-    adr_relasi elmR = firstR(L);
-    int total = 0;
+    adr_relasi elmR = firstR(L); // untuk menyimpan alamat elemen relasi untuk looping
+    int total = 0;               // untuk menyimpan akumulasi dari total penjual buku
 
     while (elmR != NULL)
     {
